@@ -1,18 +1,17 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:mentimeterclone/Providers/room_data_provider.dart';
 import 'package:mentimeterclone/Resources/socket_client.dart';
 import 'package:provider/provider.dart';
 
-
-class SocketMethods{
+class SocketMethods {
   final _socketClient = SocketClient.instance.socket!;
 //emits :
   void createQuest(String adminName) {
-    _socketClient
-        .emit('createQuest', {'AdminName': adminName});
+    _socketClient.emit('createQuest', {'AdminName': adminName});
   }
-  void addQuestion(String question, Map<String, String> options, String answer) {
+
+  void addQuestion(
+      String question, Map<String, String> options, String answer) {
     List<String> optionList = [];
     optionList.addAll(options.values);
     _socketClient.emit('addQuestion', {
@@ -31,6 +30,10 @@ class SocketMethods{
   }
 
 
+  void deleteQuestion(int index) {
+    _socketClient.emit('deleteQuestion', {'index': index});
+  }
+
   // Listeners :
 
   void createQuestSuccessListener(BuildContext context) {
@@ -40,14 +43,19 @@ class SocketMethods{
     });
   }
 
-  void joinRoomSuccessListener(BuildContext context){
-    _socketClient.on('PlayerJoined', (savedAdmin){
+  void joinRoomSuccessListener(BuildContext context) {
+    _socketClient.on('PlayerJoined', (savedAdmin) {
       Provider.of<RoomDataProvider>(context, listen: false)
           .updateRoomData(savedAdmin);
     });
   }
 
-
+  void deleteQuestionSuccessListener(BuildContext context){
+    _socketClient.on('RoomUpdated', (savedAdmin) {
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updateRoomData(savedAdmin);
+    });
+  }
 
 
 
