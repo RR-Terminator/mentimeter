@@ -1,6 +1,8 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:mentimeterclone/Providers/room_data_provider.dart';
 import 'package:mentimeterclone/Resources/socket_client.dart';
+import 'package:provider/provider.dart';
 
 
 class SocketMethods{
@@ -24,6 +26,16 @@ class SocketMethods{
     _socketClient.emit('joinRoom', {
       'UserName': userName,
       'roomId': roomId,
+    });
+  }
+
+
+  // Listeners :
+
+  void createQuestSuccessListener(BuildContext context) {
+    _socketClient.on('RoomCreated', (savedAdmin) {
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updateRoomData(savedAdmin);
     });
   }
 
