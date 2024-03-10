@@ -9,23 +9,25 @@ class QuestionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        question,
-        style: const TextStyle(fontSize: 16),
-      ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Options: $options',
-            style: TextStyle(fontSize: 14),
-          ),
-          Text(
-            'Correct Option: $rightOption',
-            style: TextStyle(fontSize: 14, color: Colors.green),
-          ),
-        ],
+    return Card(
+      child: ListTile(
+        title: Text(
+          question,
+          style: const TextStyle(fontSize: 16),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Options: $options',
+              style: TextStyle(fontSize: 14),
+            ),
+            Text(
+              'Correct Option: $rightOption',
+              style: TextStyle(fontSize: 14, color: Colors.green),
+            ),
+          ],
+        ),
       ),
     );
   }
