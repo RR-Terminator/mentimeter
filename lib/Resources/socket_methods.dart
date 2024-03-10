@@ -23,6 +23,7 @@ class SocketMethods{
   }
 
   void joinRoom(String userName, String roomId) {
+    print("this wa clicked");
     _socketClient.emit('joinRoom', {
       'UserName': userName,
       'roomId': roomId,
@@ -38,6 +39,14 @@ class SocketMethods{
           .updateRoomData(savedAdmin);
     });
   }
+
+  void joinRoomSuccessListener(BuildContext context){
+    _socketClient.on('PlayerJoined', (savedAdmin){
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updateRoomData(savedAdmin);
+    });
+  }
+
 
 
 
