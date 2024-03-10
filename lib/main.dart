@@ -1,4 +1,3 @@
-import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:mentimeterclone/Presentations/HomePage.dart';
