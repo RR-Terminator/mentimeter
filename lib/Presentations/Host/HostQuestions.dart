@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mentimeterclone/Presentations/Host/QuestionReviewPage.dart';
+import 'package:mentimeterclone/Resources/socket_methods.dart';
 
 class AddQuestions extends StatefulWidget {
 
@@ -20,6 +22,36 @@ class _QueAddQuestionsState extends State<AddQuestions> {
   };
 
   final TextEditingController _rightOption = TextEditingController();
+  final SocketMethods _socketMethods = SocketMethods();
+
+
+  void addQuestion() {
+
+    Map<String, String> options = {};
+    optionControllers.forEach((key, controller) {
+      options[key] = controller.text;
+    });
+    _socketMethods.addQuestion(_question.text, options, _rightOption.text);
+    for (var controller in optionControllers.values) {
+      controller.clear();
+    }
+    _question.clear();
+    _rightOption.clear();
+
+  }
+
+
+
+
+  void submitData() {
+    Map<String, String> options = {};
+    optionControllers.forEach((key, controller) {
+      options[key] = controller.text;
+    });
+    _socketMethods.addQuestion(_question.text, options, _rightOption.text);
+    Navigator.pushNamed(context, ReviewPage.routeName);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +84,11 @@ class _QueAddQuestionsState extends State<AddQuestions> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => submitData(),
                     child: const Text('Submit'),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => addQuestion(),
                     child: const Text('Next'),
                   ),
                 ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mentimeterclone/Presentations/Host/HostQuestions.dart';
+import 'package:mentimeterclone/Resources/socket_methods.dart';
 import 'package:mentimeterclone/Widgets/CustomButton.dart';
 import 'package:mentimeterclone/Widgets/NameField.dart';
 
@@ -15,7 +17,17 @@ class _CreateQuestState extends State<CreateQuest> {
 
 
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _roomId = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  void createRoom(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) =>  const AddQuestions()));
+    SocketMethods().createQuest(_nameController.text);
+  }
 
 
   @override
@@ -26,7 +38,7 @@ class _CreateQuestState extends State<CreateQuest> {
         children: [
           CustomTextField(controller: _nameController, hintText: 'Enter Your Name'),
           const SizedBox(height: 40),
-          CustomButton(onTap: () => {}, text: "Click Here To Create"),
+          CustomButton(onTap: () => createRoom(context), text: "Click Here To Create"),
         ],
       ),
     );

@@ -1,18 +1,16 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:mentimeterclone/Resources/socket_client.dart';
 
-class SocketMethods {
+
+class SocketMethods{
   final _socketClient = SocketClient.instance.socket!;
-
 //emits :
-
-  void createQuest(String adminName, String roomId) {
+  void createQuest(String adminName) {
     _socketClient
-        .emit('createQuest', {'AdminName': adminName, 'roomId': roomId});
+        .emit('createQuest', {'AdminName': adminName});
   }
-
-  void addQuestion(
-      String question, Map<String, String> options, String answer) {
+  void addQuestion(String question, Map<String, String> options, String answer) {
     List<String> optionList = [];
     optionList.addAll(options.values);
     _socketClient.emit('addQuestion', {
@@ -29,15 +27,7 @@ class SocketMethods {
     });
   }
 
-  // Listeners :
 
-  void createQuestSuccessListener(BuildContext context) {
-    _socketClient.on('RoomCreated', (savedAdmin) {
-      print(savedAdmin);
-      // Handle the 'Room Created' event data here
-      // Provider.of<RoomDataProvider>(context, listen: false)
-      //     .updateRoomData(savedAdmin);
-      // You can perform actions based on the received data
-    });
-  }
+
+
 }
