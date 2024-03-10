@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mentimeterclone/Providers/room_data_provider.dart';
+import 'package:mentimeterclone/Widgets/QuestionReviewField.dart';
 import 'package:provider/provider.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -27,26 +28,7 @@ class _ReviewPageState extends State<ReviewPage> {
                     var question =
                     roomDataProvider.roomData['questions'][index];
 
-                    return ListTile(
-                      title: Text(
-                        question['question'],
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Options: ${question['options']}',
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          Text(
-                            'Correct Option: ${question['correctOption']}',
-                            style: TextStyle(fontSize: 14, color: Colors.green),
-                          ),
-                        ],
-                      ),
-                      // Additional widgets or styling can be added as needed
-                    );
+                    return QuestionTile( question:  question['question'], options: question['options'], rightOption: question['correctOption']);
                   },
                 ),
               ),
